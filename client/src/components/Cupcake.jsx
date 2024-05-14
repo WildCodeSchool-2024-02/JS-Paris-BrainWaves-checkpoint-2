@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import "./Cupcake.css";
 
+
 function Cupcake({ color1, color2, color3, name, accessory }) {
   return (
     <div className="cupcake-container">
@@ -44,6 +45,7 @@ function Cupcake({ color1, color2, color3, name, accessory }) {
     </div>
   );
 }
+
 Cupcake.propTypes = {
   data: PropTypes.shape({
     accessory: PropTypes.string.isRequired,
@@ -61,7 +63,6 @@ Cupcake.propTypes = {
   name: PropTypes.string.isRequired,
   accessory: PropTypes.oneOf(["donut", "cherry", "strawberry"]).isRequired,
 };
-
 
 Cupcake.defaultProps = {
   data: {
