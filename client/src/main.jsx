@@ -10,6 +10,7 @@ import Instructions from "./pages/Instructions";
 import CupcakeList from "./pages/CupcakeList";
 
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <App />,
@@ -25,11 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/cupcakes",
         element: <CupcakeList />,
-        // Step 1: load data here
-        loader: async() => 
-         fetch(`http://localhost:3310/api/cupcakes`)
-          .then((response) => response.json())
-          .then((response) => response)
+       
+        loader: async () =>
+          fetch(`http://localhost:3310/api/cupcakes`)
+            .then((response) => response.json())
+            .then((response) => response),
       },
     ],
   },
