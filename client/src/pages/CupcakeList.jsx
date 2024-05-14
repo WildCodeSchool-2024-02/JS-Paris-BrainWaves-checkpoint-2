@@ -39,10 +39,11 @@ someCupcakes.push(
 
 function CupcakeList() {
   // Step 1: get all cupcakes
-  console.info(useLoaderData());
-
+  const data = useLoaderData();
+  console.log(data);
+  
   // Step 3: get all accessories
-
+  
   // Step 5: create filter state
 
   return (
