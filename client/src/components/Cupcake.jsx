@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+
 import "./Cupcake.css";
 
 function Cupcake({ data }) {
