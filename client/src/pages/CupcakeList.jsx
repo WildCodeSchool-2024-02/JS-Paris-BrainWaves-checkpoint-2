@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
 
-
 /* ************************************************************************* */
 const someCupcakes = [];
 someCupcakes.push(
@@ -45,17 +44,25 @@ function CupcakeList() {
   // this the console info to see the results
   console.info(cupcakes);
   // Step 3: get all accessories
-  const [accessories, setAccessories] = useState([""])
-  const accessoriesApiUrl = "http://localhost:3310/api/accessories"
-  useEffect(()=>{
+  const [accessories, setAccessories] = useState([""]);
+  const accessoriesApiUrl = "http://localhost:3310/api/accessories";
+  useEffect(() => {
     fetch(accessoriesApiUrl)
-    .then((res) => res.json())
-    .then((data) => setAccessories(data))
-    .catch((err)=> console.info(err))
-    //  console.info(accessories)
-  }, [])
+      .then((res) => res.json())
+      .then((data) => setAccessories(data))
+      .catch((err) => console.info(err));
+     console.info(accessories)
+  }, []);
 
   // Step 5: create filter state
+  const [select, setSelect] = useState("")
+  const handleSelect=(e) =>{
+    setSelect(e.target.value);
+  }
+
+      const filtration = cupcakes.filter((cupcake) => cupcake.accessory.includes(select))
+
+    
 
   return (
     <>
@@ -64,21 +71,31 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
-            <option value="">Accessorie</option>
-            {accessories.map((accessorie) => <option key={accessorie.id} value={accessorie.id}>{accessorie.name}</option> )}
+          <select id="cupcake-select" value={select} onChange= {handleSelect}>
+            <option value="">---</option>
+            {accessories.map((accessorie) => (
+              <option
+                key={accessorie.id}
+                value={accessorie.slug}
+                // onClick={()=> accFilter(accessorie.name)}
+              >
+                {accessorie.name}
+              </option>
+            ))}
             {/* Step 4: add an option for each accessory */}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
+
+        {filtration.map((data) => (
+          <li key={data.id}  className="cupcake-item">
+            <Cupcake  data={data} />
+          </li>
+        ))}
         {/* Step 5: filter cupcakes before repeating */}
-        <li className="cupcake-item">
-          {cupcakes.map((data) => (
-            <Cupcake key={data.id} data={data} />
-          ))}
-        </li>
+
         {/* end of block */}
       </ul>
     </>
