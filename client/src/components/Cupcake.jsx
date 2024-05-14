@@ -1,29 +1,31 @@
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 import "./Cupcake.css";
 
-function Cupcake({ data }) {
+function Cupcake({ color1, color2, color3, name, accessory, id }) {
   return (
     <div className="cupcake-container">
+      <NavLink to={`/cupcakes/${id}`} >
       <div className="cupcake">
-        <div className={`accessory ${data.accessory}`} />
+        <div className={`accessory ${accessory}`} />
         <div className="cream">
           <div
             className="cream-1"
             style={{
-              backgroundColor: data.color1,
+              backgroundColor: `${color1}`,
             }}
           />
           <div
             className="cream-2"
             style={{
-              backgroundColor: data.color2,
+              backgroundColor: `${color2}`,
             }}
           />
           <div
             className="cream-3"
             style={{
-              backgroundColor: data.color3,
+              backgroundColor: `${color3}`,
             }}
           />
         </div>
@@ -39,12 +41,11 @@ function Cupcake({ data }) {
           </div>
         </div>
       </div>
-
-      <div className="cupcake-name">{data.name}</div>
+      </NavLink>
+      <div className="cupcake-name">{name}</div>
     </div>
   );
 }
-
 Cupcake.propTypes = {
   data: PropTypes.shape({
     accessory: PropTypes.string.isRequired,
@@ -53,6 +54,14 @@ Cupcake.propTypes = {
     color3: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }),
+};
+Cupcake.propTypes = {
+  color1: PropTypes.string.isRequired,
+  color2: PropTypes.string.isRequired,
+  color3: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  accessory: PropTypes.oneOf(["donut", "cherry", "strawberry"]).isRequired,
 };
 
 Cupcake.defaultProps = {
@@ -64,5 +73,4 @@ Cupcake.defaultProps = {
     name: "",
   },
 };
-
 export default Cupcake;
