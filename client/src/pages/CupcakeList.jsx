@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
 
@@ -42,14 +42,14 @@ someCupcakes.push(
 function CupcakeList() {
   // Step 1: get all cupcakes
   const data = useLoaderData();
-  // const [acces, setAcces] = useState(data.data)
+  const [accessories, setAccessories] = useState(data.data)
 
   // Step 3: get all accessories
   useEffect(() => {
     axios.get("http://localhost:3310/api/accessories")
     .then((response) => {
       console.info(response)
-      // setAcces(response.data)
+      setAccessories(response.data)
     })
   }, [])
 
@@ -64,6 +64,7 @@ function CupcakeList() {
           Filter by{" "}
           <select id="cupcake-select">
             <option value="">---</option>
+            {accessories.map((accessory) => (<option key={accessory.id} value="">{accessory.name}</option>))}
             {/* Step 4: add an option for each accessory */}
           </select>
         </label>
