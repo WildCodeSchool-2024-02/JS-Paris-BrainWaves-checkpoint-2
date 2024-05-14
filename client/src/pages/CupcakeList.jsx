@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
@@ -67,7 +67,6 @@ function CupcakeList() {
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
           <select id="cupcake-select" onChange={handleFilter}>
             <option value="">---</option>
@@ -86,7 +85,9 @@ function CupcakeList() {
       <ul className="cupcake-list" id="cupcake-list">
         {filterCupcake.map((content) => (
           <li key={content.id} className="cupcake-item">
-            <Cupcake data={content} />
+            <Link to={`/cupcakes/${content.id}`}>
+              <Cupcake data={content} />
+            </Link>
           </li>
         ))}
       </ul>
