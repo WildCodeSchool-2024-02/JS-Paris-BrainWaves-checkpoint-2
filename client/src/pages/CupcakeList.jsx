@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cupcake from "../components/Cupcake";
@@ -42,12 +42,11 @@ someCupcakes.push(
 function CupcakeList() {
   const [accessories, setAccessories] = useState([]);
   const [select, setSelect] = useState("");
+  const { id } = useParams();
 
-  // Step 1: get all cupcakes
   const datas = useLoaderData();
   console.info("use", useLoaderData());
 
-  // Step 3: get all accessories
   useEffect(() => {
     axios
       .get("http://localhost:3310/api/accessories")
@@ -58,14 +57,12 @@ function CupcakeList() {
     if (!select) return true;
     return data.accessory_id === select;
   });
-  // Step 5: create filter state
 
   return (
     <>
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
           <select
             id="cupcake-select"
@@ -83,12 +80,12 @@ function CupcakeList() {
       </form>
       <ul className="cupcake-list" id="cupcake-list">
         {filteredCupcakes.map((data) => (
-          <li className="cupcake-item" key={data.id}>
-            <Cupcake data={data} />
-          </li>
+          <NavLink to={`/cupcakes/${id}`} key={data.id}>
+            <li className="cupcake-item">
+              <Cupcake data={data} />
+            </li>
+          </NavLink>
         ))}
-        {/* Step 5: filter cupcakes before repeating */}
-        {/* end of block */}
       </ul>
     </>
   );
