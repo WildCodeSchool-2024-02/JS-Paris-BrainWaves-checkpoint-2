@@ -54,6 +54,10 @@ function CupcakeList() {
       .then((res) => setAccessories(res.data));
   }, []);
 
+  const filteredCupcakes = datas.filter((data) => {
+    if (!select) return true;
+    return data.accessory_id === select;
+  });
   // Step 5: create filter state
 
   return (
@@ -66,7 +70,7 @@ function CupcakeList() {
           <select
             id="cupcake-select"
             value={select}
-            onClick={(e) => setSelect(e.target.value)}
+            onChange={(e) => setSelect(e.target.value)}
           >
             <option value="">---</option>
             {accessories.map((accessory) => (
@@ -78,15 +82,12 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {
-          datas.map((data) => (
-            <Cupcake key={data.id} data={data} />
-          )) /* Step 2: repeat this block for each cupcake */
-        }
+        {filteredCupcakes.map((data) => (
+          <li className="cupcake-item" key={data.id}>
+            <Cupcake data={data} />
+          </li>
+        ))}
         {/* Step 5: filter cupcakes before repeating */}
-        <li className="cupcake-item">
-          <Cupcake />
-        </li>
         {/* end of block */}
       </ul>
     </>
