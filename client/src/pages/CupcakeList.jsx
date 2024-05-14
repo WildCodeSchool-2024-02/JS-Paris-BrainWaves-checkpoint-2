@@ -1,4 +1,6 @@
 import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
@@ -38,10 +40,19 @@ someCupcakes.push(
 /* ************************************************************************* */
 
 function CupcakeList() {
+  const [accessories, setAccessories] = useState([]);
+  const [select, setSelect] = useState("");
+
   // Step 1: get all cupcakes
-  console.info(useLoaderData());
+  const datas = useLoaderData();
+  console.info("use", useLoaderData());
 
   // Step 3: get all accessories
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/accessories")
+      .then((res) => setAccessories(res.data));
+  }, []);
 
   // Step 5: create filter state
 
@@ -52,14 +63,26 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select
+            id="cupcake-select"
+            value={select}
+            onClick={(e) => setSelect(e.target.value)}
+          >
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {accessories.map((accessory) => (
+              <option key={accessory.id} value={accessory.id}>
+                {accessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {/* Step 2: repeat this block for each cupcake */}
+        {
+          datas.map((data) => (
+            <Cupcake key={data.id} data={data} />
+          )) /* Step 2: repeat this block for each cupcake */
+        }
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
           <Cupcake />
