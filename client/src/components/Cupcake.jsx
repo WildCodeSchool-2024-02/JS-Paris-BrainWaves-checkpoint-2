@@ -33,6 +33,8 @@ function Cupcake({ data }) {
               <div className="eyes">
                 <div className="left-eye" />
                 <div className="right-eye" />
+                <div className="right-eye" />   
+                <div className="right-eye" />
               </div>
               <div className="mouth" />
             </div>
