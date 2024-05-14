@@ -1,11 +1,19 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 import "./Cupcake.css";
 
 function Cupcake({ data }) {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/cupcakes/${data.id}`);
+  };
+
   return (
     <div className="cupcake-container">
-      <div className="cupcake">
+      <div className="cupcake" onClick={handleClick} role="presentation">
         <div className={`accessory ${data.accessory}`} />
         <div className="cream">
           <div
@@ -47,6 +55,7 @@ function Cupcake({ data }) {
 
 Cupcake.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     accessory: PropTypes.string.isRequired,
     color1: PropTypes.string.isRequired,
     color2: PropTypes.string.isRequired,
@@ -57,6 +66,7 @@ Cupcake.propTypes = {
 
 Cupcake.defaultProps = {
   data: {
+    id: PropTypes.string.isRequired,
     accessory: "donut",
     color1: "var(--default-cream-color)",
     color2: "var(--default-cream-color)",
