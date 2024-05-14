@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       {
         path: "/cupcakes",
         element: <CupcakeList />,
+        loader: () => axios.get("http://localhost:3310/api/cupcakes"),
         // Step 1: load data here
       },
     ],
