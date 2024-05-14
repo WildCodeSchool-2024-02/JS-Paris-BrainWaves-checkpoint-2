@@ -40,6 +40,7 @@ someCupcakes.push(
 function CupcakeList() {
   // Step 1: get all cupcakes
   const cupcakes = useLoaderData();
+  // this the console info to see the results
   console.info(cupcakes);
   // Step 3: get all accessories
 
