@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { useEffect } from "react";
 import Cupcake from "../components/Cupcake";
 
@@ -70,12 +70,14 @@ function CupcakeList() {
           </select>
         </label>
       </form>
-      <ul className="cupcake-list" id="cupcake-list">
+      <ul className="cupcake-list" id="cupcake-list"> 
         {/* FAIT >>>>>> Step 2: repeat this block for each cupcake <<<<<<< */}
         {/* Step 5: filter cupcakes before repeating */}
         {data.map((gateaux) => (
           <li key={gateaux.id} className="cupcake-item">
-            <Cupcake data={data} />
+            <Link to={`/cupcakes/${gateaux.id}`}>
+            <Cupcake data={gateaux} />
+            </Link>
           </li>
         ))}
         {/* end of block */}

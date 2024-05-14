@@ -9,7 +9,7 @@ function Home() {
     <>
       <h1>Cupcake Union</h1>
       <div className="home-cupcake">
-        <Cupcake />
+        <Cupcake/>
       </div>
       <div className="home-content">
         <p>
@@ -20,8 +20,8 @@ function Home() {
           ✔️ Display cupcakes from an API <br />
           ✔️ Filter them by accessory
         </p>
-        <p>
-          Clic on <Link to="/instructions">Instructions</Link> to start !
+        <p >
+          Clic on <Link to="/cupcakes" style={{fontSize : 30}}>Cupcake List</Link> bro, and enjoy !
         </p>
       </div>
     </>
