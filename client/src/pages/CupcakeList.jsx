@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
+
 
 /* ************************************************************************* */
 const someCupcakes = [];
@@ -87,9 +88,11 @@ function CupcakeList() {
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 5: filter cupcakes before repeating */}
         {filterData.map((cupcake) => (
-          <li key={cupcake.id} className="cupcake-item">
+        <Link key={cupcake.id}  to={`/cupcakes/${cupcake.id}`}>
+          <li className="cupcake-item">
             <Cupcake data={cupcake} />
           </li>
+        </Link>
         ))}
 
         {/* end of block */}
