@@ -41,7 +41,6 @@ someCupcakes.push(
 function CupcakeList() {
   // Step 1: get all cupcakes
   const data = useLoaderData();
-  console.log(data);
   
   // Step 3: get all accessories
   const [accessories, setAccessories] = useState([]);
@@ -52,6 +51,8 @@ function CupcakeList() {
   },[])
   
   // Step 5: create filter state
+  const [optionSearch, setOptionSearch] = useState("");
+  const filteredCupcake = data.filter((cupcake) => cupcake.accessory_id === optionSearch);
 
   return (
     <>
@@ -60,8 +61,8 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
-            <option value="">---</option>
+          <select id="cupcake-select" onChange={(e) => setOptionSearch(e.target.value)}>
+            <option value={optionSearch}>---</option>
             {/* Step 4: add an option for each accessory */}
            { accessories.map((accessorie) => <option value={accessorie.id} key={accessorie.id}>{accessorie.name}</option>)}
           </select>
@@ -71,7 +72,7 @@ function CupcakeList() {
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
-        {data.map((cupcake) => <Cupcake key={cupcake.id} data={cupcake}/>)}
+        {optionSearch === "" ? data.map((cupcake) => <Cupcake key={cupcake.id} data={cupcake}/>) : filteredCupcake.map((cupcake) => <Cupcake key={cupcake.id} data={cupcake}/>)}
         </li>
         {/* end of block */}
       </ul>
