@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cupcake from "../components/Cupcake";
@@ -35,25 +34,33 @@ someCupcakes.push(
     name: "Sweden",
   }
 );
+
 /* you can use someCupcakes if you're stucked on step 1 */
 /* if you're fine with step 1, just ignore this ;) */
 /* ************************************************************************* */
 
 function CupcakeList() {
   const data = useLoaderData();
-  console.info(data);
   // console.log(data);
 
-  // Step 3: get all accessories
   const [allAccessory, setAllAccessory] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3310/api/accessories`).then((response) => {
+    axios.get(`http://localhost:3310/api/accessories/`).then((response) => {
       setAllAccessory(response.data);
     });
   }, []);
 
   // Step 5: create filter state
+  const [tabfilter, setTabfilter] = useState("");
+
+  const handleSearch = (e) => {
+    setTabfilter(e.target.value);
+  };
+
+  const filterdCupcakes = data.filter(
+    (filterAccessory) => tabfilter === filterAccessory.accessory_id
+  );
 
   return (
     <>
@@ -62,10 +69,13 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select onChange={handleSearch} id="cupcake-select">
             <option value="">---</option>
             {allAccessory.map((accessory) => (
-              <option key={accessory.id}> {accessory.name} </option>
+              <option value={accessory.id} key={accessory.id}>
+                {" "}
+                {accessory.name}{" "}
+              </option>
             ))}
             {/* Step 4: add an option for each accessory */}
           </select>
@@ -74,17 +84,30 @@ function CupcakeList() {
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
-        {data.map((cupcake) => (
-          <li className="cupcake-item" key={cupcake.id}>
-            <Cupcake
-              color1={cupcake.color1}
-              color2={cupcake.color2}
-              color3={cupcake.color3}
-              name={cupcake.name}
-              accessory={cupcake.accessory}
-            />
-          </li>
-        ))}
+        
+        {tabfilter === ""
+          ? data.map((cupcake) => (
+              <li className="cupcake-item" key={cupcake.id}>
+                <Cupcake
+                  color1={cupcake.color1}
+                  color2={cupcake.color2}
+                  color3={cupcake.color3}
+                  name={cupcake.name}
+                  accessory={cupcake.accessory}
+                />
+              </li>
+            ))
+          : filterdCupcakes.map((cupcake) => (
+              <li className="cupcake-item" key={cupcake.id}>
+                <Cupcake
+                  color1={cupcake.color1}
+                  color2={cupcake.color2}
+                  color3={cupcake.color3}
+                  name={cupcake.name}
+                  accessory={cupcake.accessory}
+                />
+              </li>
+            ))}
         {/* end of block */}
       </ul>
     </>
