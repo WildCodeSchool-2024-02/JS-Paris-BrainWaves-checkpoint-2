@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
@@ -40,6 +40,7 @@ someCupcakes.push(
 
 function CupcakeList() {
   const cupcakes = useLoaderData();
+  const navigate = useNavigate();
   // Step 1: get all cupcakes
   console.info(useLoaderData());
 
@@ -82,7 +83,14 @@ function CupcakeList() {
         {cupcakes
           .filter((cupcake) => cupcake.accessory_id.includes(currentAccessory))
           .map((cupcake) => (
-            <li className="cupcake-item" key={cupcake.id}>
+            <li
+              className="cupcake-item"
+              key={cupcake.id}
+              onClick={() => {
+                navigate(`/cupcakes/${cupcake.id}`);
+              }}
+              role="presentation"
+            >
               <Cupcake data={cupcake} />
             </li>
           ))}
