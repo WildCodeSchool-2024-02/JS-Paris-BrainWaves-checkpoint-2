@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import "./Home.css";
+import "../Styles/Home.css";
 
 import Cupcake from "../components/Cupcake";
 
