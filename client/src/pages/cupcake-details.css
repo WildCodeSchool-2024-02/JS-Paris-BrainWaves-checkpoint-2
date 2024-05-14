@@ -1,0 +1,9 @@
+.cupcake-desc {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cupcake-info {
+  display: flex;
+  flex-direction: column;
+}

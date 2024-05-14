@@ -1,6 +1,6 @@
-import { useLoaderData } from "react-router-dom";
-import Cupcake from "../components/Cupcake";
+import { useLoaderData, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
 const someCupcakes = [];
@@ -41,18 +41,20 @@ someCupcakes.push(
 function CupcakeList() {
   // Step 1: get all cupcakes
   const data = useLoaderData();
-  
+
   // Step 3: get all accessories
   const [accessories, setAccessories] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:3310/api/accessories")
-    .then(res => res.json())
-    .then(acc => setAccessories(acc))
-  },[])
-  
+      .then((res) => res.json())
+      .then((acc) => setAccessories(acc));
+  }, []);
+
   // Step 5: create filter state
   const [optionSearch, setOptionSearch] = useState("");
-  const filteredCupcake = data.filter((cupcake) => cupcake.accessory_id === optionSearch);
+  const filteredCupcake = data.filter(
+    (cupcake) => cupcake.accessory_id === optionSearch
+  );
 
   return (
     <>
@@ -61,10 +63,17 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select" onChange={(e) => setOptionSearch(e.target.value)}>
-            <option value={optionSearch}>---</option>
+          <select
+            id="cupcake-select"
+            onChange={(e) => setOptionSearch(e.target.value)}
+          >
+            <option value="">---</option>
             {/* Step 4: add an option for each accessory */}
-           { accessories.map((accessorie) => <option value={accessorie.id} key={accessorie.id}>{accessorie.name}</option>)}
+            {accessories.map((accessorie) => (
+              <option value={accessorie.id} key={accessorie.id}>
+                {accessorie.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
@@ -72,7 +81,17 @@ function CupcakeList() {
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
         <li className="cupcake-item">
-        {optionSearch === "" ? data.map((cupcake) => <Cupcake key={cupcake.id} data={cupcake}/>) : filteredCupcake.map((cupcake) => <Cupcake key={cupcake.id} data={cupcake}/>)}
+          {optionSearch === ""
+            ? data.map((cupcake) => (
+                <Link key={cupcake.id} to={`/cupcakes/${cupcake.id}`}>
+                  <Cupcake key={cupcake.id} data={cupcake} />
+                </Link>
+              ))
+            : filteredCupcake.map((cupcake) => (
+                <Link key={cupcake.id} to={`/cupcakes/${cupcake.id}`}>
+                  <Cupcake key={cupcake.id} data={cupcake} />
+                </Link>
+              ))}
         </li>
         {/* end of block */}
       </ul>
