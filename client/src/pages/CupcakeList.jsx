@@ -34,34 +34,22 @@ someCupcakes.push(
     name: "Sweden",
   }
 );
-
-/* you can use someCupcakes if you're stucked on step 1 */
-/* if you're fine with step 1, just ignore this ;) */
-/* ************************************************************************* */
-
 function CupcakeList() {
   const data = useLoaderData();
   // console.log(data);
-
   const [allAccessory, setAllAccessory] = useState([]);
-
   useEffect(() => {
     axios.get(`http://localhost:3310/api/accessories/`).then((response) => {
       setAllAccessory(response.data);
     });
   }, []);
-
-  // Step 5: create filter state
   const [tabfilter, setTabfilter] = useState("");
-
   const handleSearch = (e) => {
     setTabfilter(e.target.value);
   };
-
   const filterdCupcakes = data.filter(
     (filterAccessory) => tabfilter === filterAccessory.accessory_id
   );
-
   return (
     <>
       <h1>My cupcakes</h1>
@@ -84,7 +72,6 @@ function CupcakeList() {
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
         {/* Step 5: filter cupcakes before repeating */}
-        
         {tabfilter === ""
           ? data.map((cupcake) => (
               <li className="cupcake-item" key={cupcake.id}>
@@ -94,6 +81,7 @@ function CupcakeList() {
                   color3={cupcake.color3}
                   name={cupcake.name}
                   accessory={cupcake.accessory}
+                  id={cupcake.id}
                 />
               </li>
             ))
@@ -105,6 +93,7 @@ function CupcakeList() {
                   color3={cupcake.color3}
                   name={cupcake.name}
                   accessory={cupcake.accessory}
+                  id={cupcake.id}
                 />
               </li>
             ))}
