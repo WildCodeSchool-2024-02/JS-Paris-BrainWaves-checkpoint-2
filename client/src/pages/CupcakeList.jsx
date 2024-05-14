@@ -42,7 +42,7 @@ someCupcakes.push(
 function CupcakeList() {
   // Step 1: get all cupcakes
   const cupcakes = useLoaderData();
-  console.info(cupcakes);
+  console.info("testtstsgsftsggsgsgfsd", cupcakes);
   // Step 3: get all accessories
   const [accessories, setAccessories] = useState([]);
   useEffect(() => {
@@ -55,7 +55,7 @@ function CupcakeList() {
   console.info(accessories);
 
   // Step 5: create filter state
-
+  const [value, setValue] = useState("");
   return (
     <>
       <h1>My cupcakes</h1>
@@ -63,7 +63,11 @@ function CupcakeList() {
         <label htmlFor="cupcake-select">
           {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select
+            id="cupcake-select"
+            onChange={(e) => setValue(e.target.value)}
+          >
+            <option value={0}>None</option>
             {accessories.map((accessorie) => (
               <option key={accessorie.id} value={accessorie.id}>
                 {accessorie.name}
@@ -73,14 +77,26 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {cupcakes.map((cupcake, index) => (
-          <Cupcake data={cupcake} key={cupcake.id} index={index} />
-        ))}
-        {/* Step 5: filter cupcakes before repeating */}
-        <li className="cupcake-item">
-          <Cupcake />
-        </li>
-        {/* end of block */}
+        {value === 0 ? (
+          <>
+            {cupcakes.map((cupcake, index) => (
+              <li className="cupcake-item" key={cupcake.id}>
+                <Cupcake data={cupcake} index={index} />
+              </li>
+            ))}
+            <li className="cupcake-item">
+              <Cupcake />
+            </li>
+          </>
+        ) : (
+          cupcakes
+            .filter((cupcake) => value === cupcake.accessory_id)
+            .map((cupcake, index) => (
+              <li className="cupcake-item" key={cupcake.id}>
+                <Cupcake data={cupcake} index={index} />
+              </li>
+            ))
+        )}
       </ul>
     </>
   );
