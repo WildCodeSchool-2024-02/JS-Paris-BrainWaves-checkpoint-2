@@ -88,6 +88,7 @@ function CupcakeList() {
                   color3={cupcake.color3}
                   name={cupcake.name}
                   accessory={cupcake.accessory}
+                  id={cupcake.id}
                 />
               </li>
             ))
@@ -99,6 +100,7 @@ function CupcakeList() {
                   color3={cupcake.color3}
                   name={cupcake.name}
                   accessory={cupcake.accessory}
+                  id={cupcake.id}
                 />
               </li>
             ))}

@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 import "./Cupcake.css";
 
-function Cupcake({ color1, color2, color3, name, accessory }) {
+function Cupcake({ color1, color2, color3, name, accessory, id }) {
   return (
     <div className="cupcake-container">
+      <NavLink to={`/cupcakes/${id}`} >
       <div className="cupcake">
         <div className={`accessory ${accessory}`} />
         <div className="cream">
@@ -39,7 +41,7 @@ function Cupcake({ color1, color2, color3, name, accessory }) {
           </div>
         </div>
       </div>
-
+      </NavLink>
       <div className="cupcake-name">{name}</div>
     </div>
   );
@@ -60,6 +62,7 @@ Cupcake.propTypes = {
   color2: PropTypes.string.isRequired,
   color3: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   accessory: PropTypes.oneOf(["donut", "cherry", "strawberry"]).isRequired,
 };
 
