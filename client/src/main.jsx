@@ -8,6 +8,7 @@ import App from "./App";
 import Home from "./pages/Home";
 import Instructions from "./pages/Instructions";
 import CupcakeList from "./pages/CupcakeList";
+import CupcakeDetail from "./pages/CupcakeDetails";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,12 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:3310/api/cupcakes"),
 
       },
+      {
+        path: "/cupcakes",
+        element: <CupcakeDetail />,
+        loader: ({params}) => 
+        fetch(`http://localhost:3310/api/cupcakes${params.id}`)
+      }
     ],
   },
 ]);

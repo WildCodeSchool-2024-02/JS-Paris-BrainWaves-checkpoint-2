@@ -4,6 +4,7 @@ import "./Cupcake.css";
 
 function Cupcake({ data }) {
   return (
+    
     <div className="cupcake-container">
       <div className="cupcake">
         <div className={`accessory ${data.accessory}`} />
