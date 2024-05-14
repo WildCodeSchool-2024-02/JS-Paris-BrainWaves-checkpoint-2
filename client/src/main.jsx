@@ -31,7 +31,8 @@ const router = createBrowserRouter([
       {
         path: "/cupcakes/:id",
         element: <CupcakeDetail />,
-        loader: () => fetch("http://localhost:3310/api/cupcakes"),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3310/api/cupcakes/${params.id}`),
       },
     ],
   },
