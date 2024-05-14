@@ -44,7 +44,7 @@ function CupcakeList() {
   // console.info(cupcakes);
   // Step 1: get all cupcakes
 
-  const [dataAccessories, setDataAccessories] = useState(null);
+  const [dataAccessories, setDataAccessories] = useState([]);
 
   useEffect(() => {
     const fetchDataAccessories = async () => {
@@ -74,7 +74,11 @@ function CupcakeList() {
           Filter by{" "}
           <select id="cupcake-select">
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {dataAccessories.map((dataAccessory) => (
+              <option key={dataAccessory.id} value={dataAccessory.id}>
+                {dataAccessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
