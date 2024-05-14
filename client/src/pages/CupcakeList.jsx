@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
@@ -44,7 +44,12 @@ function CupcakeList() {
   // Step 3: get all accessories
   const [ accessories, setAccessories ] = useState([])
   const [selectedAccessory, setSelectedAccessory] = useState("")
+  const [clickedCupcake, setClickedCupcake] = useState("")
 
+  const navigate = useNavigate()
+  function handleClick(){
+    navigate(`/cupcakes/${clickedCupcake}`)
+  }
 
   useEffect(() => {
     fetch("http://localhost:3310/api/accessories")
@@ -71,15 +76,15 @@ function CupcakeList() {
                 <option value={accessory.id} key={accessory.id}>{accessory.name}</option>
               ))
             }
-            {/* Step 4: add an option for each accessory */}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {/* Step 2: repeat this block for each cupcake */}
-        {/* Step 5: filter cupcakes before repeating */}
         {cupcakes.filter(cupcake => cupcake.accessory_id.includes(selectedAccessory)).map((cupcake) => (
-          <li className="cupcake-item" key={cupcake.name}>
+          <li className="cupcake-item" key={cupcake.name} onClick={() => {
+            setClickedCupcake(cupcake.id) 
+            handleClick()
+          }} role="presentation">
             <Cupcake data={cupcake}/>
           </li>
         ))}
