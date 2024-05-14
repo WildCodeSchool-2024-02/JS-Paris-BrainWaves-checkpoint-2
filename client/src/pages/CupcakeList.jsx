@@ -1,6 +1,5 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
@@ -67,7 +66,7 @@ function CupcakeList() {
             id="cupcake-select"
             onChange={(e) => setValue(e.target.value)}
           >
-            <option value={0}>None</option>
+            <option value="">None</option>
             {accessories.map((accessorie) => (
               <option key={accessorie.id} value={accessorie.id}>
                 {accessorie.name}
@@ -77,12 +76,14 @@ function CupcakeList() {
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {value === 0 ? (
+        {value === "" ? (
           <>
             {cupcakes.map((cupcake, index) => (
-              <li className="cupcake-item" key={cupcake.id}>
-                <Cupcake data={cupcake} index={index} />
-              </li>
+              <Link key={cupcake.id} to={`/cupcakes/${cupcake.id}`}>
+                <li className="cupcake-item" key={cupcake.id}>
+                  <Cupcake data={cupcake} index={index} />
+                </li>
+              </Link>
             ))}
             <li className="cupcake-item">
               <Cupcake />
@@ -92,9 +93,11 @@ function CupcakeList() {
           cupcakes
             .filter((cupcake) => value === cupcake.accessory_id)
             .map((cupcake, index) => (
-              <li className="cupcake-item" key={cupcake.id}>
-                <Cupcake data={cupcake} index={index} />
-              </li>
+              <Link key={cupcake.id} to={`/cupcakes/${cupcake.id}`}>
+                <li className="cupcake-item" key={cupcake.id}>
+                  <Cupcake data={cupcake} index={index} />
+                </li>
+              </Link>
             ))
         )}
       </ul>
