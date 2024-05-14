@@ -59,15 +59,27 @@ function CupcakeList() {
 
   useEffect(() => {
     const fetchAccessories = async () => {
+      try{
+        const response = await fetch('localhost:3310/api/accessories');
+        
+        if(!response.ok) {
+          throw new Error('Failed to fetch accessoires');
+        }
+        const data = await response.json();
+        setAccessories(data);
+      }
+        catch (error) {
+          console.error('Error fetching accessoires:', error);
+        }};
+
       const accessoriesData = [
-        { id: "4", name: "wcs" },
+        { id: "4", name: "wcs",},
         { id: "5", name: "christmas-candy" },
+
       ];
       setAccessories(accessoriesData);
-    };
-
-    fetchAccessories();
-  }, []);
+    }, []);
+    
 
   const handleFilterChange = (event) => {
     setSelectedAccessory(event.target.value);
