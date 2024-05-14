@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./Cupcake.css";
 
 function Cupcake({ data }) {
+  
   return (
     <div className="cupcake-container">
       <div className="cupcake">
@@ -42,6 +43,7 @@ function Cupcake({ data }) {
 
       <div className="cupcake-name">{data.name}</div>
     </div>
+  
   );
 }
 

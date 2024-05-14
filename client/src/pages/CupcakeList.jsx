@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData, useParams } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cupcake from "../components/Cupcake";
@@ -42,7 +42,6 @@ someCupcakes.push(
 function CupcakeList() {
   const [accessories, setAccessories] = useState([]);
   const [select, setSelect] = useState("");
-  const { id } = useParams();
 
   const datas = useLoaderData();
   console.info("use", useLoaderData());
@@ -80,7 +79,7 @@ function CupcakeList() {
       </form>
       <ul className="cupcake-list" id="cupcake-list">
         {filteredCupcakes.map((data) => (
-          <NavLink to={`/cupcakes/${id}`} key={data.id}>
+          <NavLink to={`/cupcakes/${data.id}`} key={data.id}>
             <li className="cupcake-item">
               <Cupcake data={data} />
             </li>
