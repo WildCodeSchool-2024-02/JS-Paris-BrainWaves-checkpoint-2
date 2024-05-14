@@ -30,6 +30,9 @@ const router = createBrowserRouter([
             .then((response) => response.json())
             .then((response) => response),
       },
+      {
+        path: "/details"
+      }
     ],
   },
 ]);
